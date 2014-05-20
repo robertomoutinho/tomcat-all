@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# chkconfig: - 85 15
+# description: Jakarta Tomcat Java Servlets and JSP server
+# processname: tomcat
+# pidfile: /var/www/tomcat/tomcat.pid
+
+# Source function library.
+. /etc/init.d/functions
+
+TOMCAT_USER=<%= node['tomcat-all']['user'] %>
+CATALINA_HOME=<%= node['tomcat-all']['install_directory'] %>/tomcat
+RETVAL=$?
+
+case "$1" in
+start)
+        echo "Starting Tomcat"
+        exec su -l $TOMCAT_USER -c "$CATALINA_HOME/bin/catalina.sh start"
+;;
+
+stop)
+        echo "Stopping Tomcat"
+        exec su -l $TOMCAT_USER -c "$CATALINA_HOME/bin/catalina.sh stop -force"
+;;
+
+restart)
+        $0 stop
+        sleep 15
+        $0 start
+;;
+
+*)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 1
+;;
+esac
+
+exit $RETVAL

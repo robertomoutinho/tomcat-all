@@ -1,0 +1,9 @@
+# Created by Chef for <%= node['hostname'] %>
+<%= node['tomcat-all']['install_directory'] %>/tomcat/logs/catalina.out {
+        copytruncate
+        daily
+        rotate 7
+        compress
+        missingok
+        size 5M
+}
