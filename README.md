@@ -1,8 +1,6 @@
 # tomcat-all cookbook
 
-This cookbook will install tomcat using apache's binaries.
-Currently tested for tomcat 7 and CentOS 6 but it its written to work
-with other tomcat versions and OS distributions also.
+This cookbook will install tomcat using apache's binaries and extract it to the desired path.
 
 Tested with:
 
@@ -26,6 +24,8 @@ This recipe will also create a custom server.xml, catalina.sh and initd script
 configured with the bellow default settings.
 
 # Attributes
+
+	>> Default values provided as example only
 
 	['tomcat-all']['user'] = 'tomcat'
 	* The user under tomcat will run
@@ -58,6 +58,31 @@ configured with the bellow default settings.
 	
 	['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'
 	* Override to set Xmx, Xms and PermGemSize
+
+# Example Config
+
+```
+	default_attributes(
+	  "java" => {
+	    "install_flavor" => "oracle",
+	    "jdk_version" => 7,
+	    "oracle" => {
+	      "accept_oracle_download_terms" => true
+	    }
+	  },
+	  "tomcat-all" => {
+	    "user" => "tomcat",
+	    "group" => "tomcat",
+	    "version" => "7.0.53",
+	    "install_directory" => "/opt",
+	    "shutdown_port" => "-1",
+	    "port" => "8080",
+	    "max_threads" => "500",
+	    "min_spare_threads" => "100",
+	    "java_opts" => "-d64 -server -Djava.awt.headless=true -Xms3072m -Xmx3072m -XX:MaxPermSize=512m"
+	  }
+	)
+```
 
 # Recipes
 
