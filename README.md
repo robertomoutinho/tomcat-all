@@ -4,6 +4,11 @@ This cookbook will install tomcat using apache's binaries.
 Currently tested for tomcat 7 and CentOS 6 but it its written to work
 with other tomcat versions and OS distributions also.
 
+Tested with:
+
+- CentOS 6.3 + Tomcat 7.0.53
+- Ubuntu 12.04 + Tomcat 7.0.53
+
 # Requirements
 
 Developed using Chef 11.12.4
