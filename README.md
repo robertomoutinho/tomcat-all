@@ -25,39 +25,27 @@ configured with the bellow default settings.
 
 # Attributes
 
-	>> Default values provided as example only
+>> Default values provided as example only
 
-	['tomcat-all']['user'] = 'tomcat'
-	* The user under tomcat will run
+* `['tomcat-all']['user'] = 'tomcat'` - The user under tomcat will run
 	
-	['tomcat-all']['group'] = 'tomcat'
-	* The group under tomcat will run
+* `['tomcat-all']['group'] = 'tomcat'` - The group under tomcat will run
 	
-	['tomcat-all']['version'] = '7.0.53'
-	* Tomcat's version to be installed
+* `['tomcat-all']['version'] = '7.0.53'` - Tomcat's version to be installed
 	
-	['tomcat-all']['install_directory'] = '/opt'
-	* The root directory where tomcat will be installed. 
-	 Bellow this directory this recipe will create a symlink tomcat 
-	 and extract to a folder called 'tomcat-#{version})
-	 Example:
-	 /opt/tomcat (symlink)
-	 /opt/tomcat-7.0.53 (extract folder)
+* `['tomcat-all']['install_directory'] = '/opt'` - The root directory where tomcat will be installed.
+ Bellow this directory this recipe will create a symlink tomcat and extract to a folder called 'tomcat-#{version}).
+ Example: creates `/opt/tomcat` as a symbolic link to `/opt/tomcat-7.0.53` (tomcat actual folder)
 
-	['tomcat-all']['shutdown_port'] = '8005'
-	* Tomcat shutdown port (Set to '-1' to disable remote shutdown)
+* `['tomcat-all']['shutdown_port'] = '8005'` - Tomcat shutdown port (Set to '-1' to disable remote shutdown)
 	 
-	['tomcat-all']['port'] = '8080'
-	* Port where tomcat will listen
+* `['tomcat-all']['port'] = '8080'` - Port where tomcat will listen
 	 
-	['tomcat-all']['max_threads'] = '100'
-	* Max threads on tomcat threadpool
+* `['tomcat-all']['max_threads'] = '100'` - Max threads on tomcat threadpool
 	 
-	['tomcat-all']['min_spare_threads'] = '10'
-	* Min spare threads on tomcat threadpool
+* `['tomcat-all']['min_spare_threads'] = '10'` - Min spare threads on tomcat threadpool
 	
-	['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'
-	* Override to set Xmx, Xms and PermGemSize
+* `['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'` - JAVA_OPTS configuration
 
 # Example Config
 
