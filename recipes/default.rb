@@ -12,9 +12,6 @@ tomcat_version = node['tomcat-all']['version']
 major_version = tomcat_version[0]
 download_url = "http://archive.apache.org/dist/tomcat/tomcat-#{major_version}/v#{tomcat_version}/bin/apache-tomcat-#{tomcat_version}.tar.gz"
 
-# Download and install JDK (set JAVA_HOME)
-include_recipe 'java'
-
 # Create group
 group node['tomcat-all']['group']
 

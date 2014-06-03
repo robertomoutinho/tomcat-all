@@ -1,0 +1,31 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+    driver_config:
+      network:
+      - ["private_network", {ip: "33.33.33.10"}]
+    run_list:
+      - recipe[apt]
+    attributes:
+      apt:
+        compiletime: true
+
+  - name: centos-6.4
+    driver_config:
+      network:
+      - ["private_network", {ip: "33.33.33.11"}]
+
+suites:
+  - name: default
+    run_list:
+      - recipe[java]
+      - recipe[tomcat-all::default]
+    attributes:
+      java:
+        jdk_version: 7
