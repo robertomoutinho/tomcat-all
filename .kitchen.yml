@@ -6,10 +6,10 @@ provisioner:
   name: chef_solo
 
 platforms:
- - name: ubuntu-12.04
-   driver_config:
-     network:
-     - ["private_network", {ip: "33.33.33.10"}]
+  - name: ubuntu-12.04
+    driver_config:
+      network:
+      - ["private_network", {ip: "33.33.33.10"}]
 
   - name: centos-6.4
     driver_config:
@@ -19,11 +19,11 @@ platforms:
 suites:
   - name: default
     run_list:
+      - recipe[apt]
       - recipe[java]
       - recipe[tomcat-all::default]
     attributes:
+      apt:
+        compiletime: true
       java:
-        install_flavor: "oracle"
         jdk_version: 7
-        oracle:
-          accept_oracle_download_terms: true

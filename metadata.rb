@@ -8,3 +8,4 @@ version          '0.1.0'
 
 depends 'ark', '~> 0.8.2'
 depends 'java', '~> 1.22.0'
+depends 'apt', '~> 2.4.0'
