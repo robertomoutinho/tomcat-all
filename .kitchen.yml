@@ -10,6 +10,11 @@ platforms:
     driver_config:
       network:
       - ["private_network", {ip: "33.33.33.10"}]
+    run_list:
+      - recipe[apt]
+    attributes:
+      apt:
+        compiletime: true
 
   - name: centos-6.4
     driver_config:
@@ -19,11 +24,8 @@ platforms:
 suites:
   - name: default
     run_list:
-      - recipe[apt]
       - recipe[java]
       - recipe[tomcat-all::default]
     attributes:
-      apt:
-        compiletime: true
       java:
         jdk_version: 7
