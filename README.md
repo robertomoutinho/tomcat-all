@@ -2,9 +2,9 @@
 
 This cookbook will install tomcat using apache's binaries and extract it to the desired path.
 
-Tested with:
+Tested with test-kitchen + serverspec:
 
-- CentOS 6.3 + Tomcat 7.0.53
+- CentOS 6.4 + Tomcat 7.0.53
 - Ubuntu 12.04 + Tomcat 7.0.53
 
 # Requirements
