@@ -22,24 +22,111 @@
     <Connector executor="tomcatThreadPool"
                port="<%= node["tomcat-all"]["port"] %>" protocol="HTTP/1.1"
                connectionTimeout="20000"
-               redirectPort="8443" />
-    <!--
-    <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
-               maxThreads="150" scheme="https" secure="true"
-               clientAuth="false" sslProtocol="TLS" />
-    -->
+               maxHttpHeaderSize="8192"
+               enableLookups="false"
+               acceptCount="100"
+               disableUploadTimeout="true"
+               URIEncoding="UTF-8"
+               redirectPort="443"/>
+
+    <% if node["tomcat-all"]["ssl_enabled"] -%>
+
+    <Connector executor="tomcatThreadPool"
+        port="<%= node["tomcat-all"]["ssl_port"] %>"
+        maxHttpHeaderSize="8192"
+        enableLookups="false"
+        disableUploadTimeout="true"
+        acceptCount="100"
+        scheme="https"
+        secure="true"
+        SSLEnabled="true"
+        clientAuth="false"
+        sslProtocol="TLS"
+        URIEncoding="UTF-8"
+        <% if node["tomcat-all"]["keystore_file"]!='' -%>
+            keystoreFile="<%= node["tomcat-all"]["keystore_file"] %>"
+        <% end -%>
+        <% if node["tomcat-all"]["keystore_pass"]!='' -%>
+            keystorePass="<%= node["tomcat-all"]["keystore_pass"] %>"
+        <% end -%>
+        <% if node["tomcat-all"]["keystore_type"]!='' -%>
+            keystoreType="<%= node["tomcat-all"]["keystore_type"] %>"
+        <% end -%>
+    />
+    <% end -%>
 
     <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 
 
     <Engine name="Catalina" defaultHost="localhost">
-
+      <% if node["tomcat-all"]["lockout_realm_enabled"] -%>
       <Realm className="org.apache.catalina.realm.LockOutRealm">
-        <Realm className="org.apache.catalina.realm.UserDatabaseRealm"
-               resourceName="UserDatabase"/>
+        <Realm
+            <% if node["tomcat-all"]["lockout_realm_classname"]!='' -%>
+            className="<%= node["tomcat-all"]["lockout_realm_classname"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_resourcename"]!='' -%>
+            resourceName="<%= node["tomcat-all"]["lockout_realm_resourcename"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_datasourcename"]!='' -%>
+            dataSourceName="<%= node["tomcat-all"]["lockout_realm_datasourcename"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_usertable"]!='' -%>
+            userTable="<%= node["tomcat-all"]["lockout_realm_usertable"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_usernamecol"]!='' -%>
+            userNameCol="<%= node["tomcat-all"]["lockout_realm_usernamecol"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_usercredcol"]!='' -%>
+            userCredCol="<%= node["tomcat-all"]["lockout_realm_usercredcol"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_userroletable"]!='' -%>
+            userRoleTable="<%= node["tomcat-all"]["lockout_realm_userroletable"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_roleNameCol"]!='' -%>
+            roleNameCol="<%= node["tomcat-all"]["lockout_realm_roleNameCol"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_localdatasource"]!='' -%>
+            localDataSource="<%= node["tomcat-all"]["lockout_realm_localdatasource"] %>"
+            <% end -%>
+            <% if node["tomcat-all"]["lockout_realm_digest"]!='' -%>
+            digest="<%= node["tomcat-all"]["lockout_realm_digest"] %>"
+            <% end -%>
+         />
       </Realm>
+      <% end -%>
 
       <Host name="localhost"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+
+        <% if node["tomcat-all"]["cluster_class"] != '' %>
+            <Cluster className="<%= node["tomcat-all"]["cluster_class"] %>">
+
+        <% if node["tomcat-all"]["farm_deploy_enabled"] -%>
+            <Deployer
+                <% if node["tomcat-all"]["farm_deploy_classname"] != '' %>
+                className="<%= node["tomcat-all"]["farm_deploy_classname"] %>"
+                <% end -%>
+                <% if node["tomcat-all"]["farm_deploy_tempdir"] != '' %>
+                tempDir="<%= node["tomcat-all"]["farm_deploy_tempdir"] %>"
+                <% end -%>
+                <% if node["tomcat-all"]["farm_deploy_deploydir"] != '' %>
+                deployDir="<%= node["tomcat-all"]["farm_deploy_deploydir"] %>"
+                <% end -%>
+                <% if node["tomcat-all"]["farm_deploy_watchdir"] != '' %>
+                watchDir="<%= node["tomcat-all"]["farm_deploy_watchdir"] %>"
+                <% end -%>
+                <% if node["tomcat-all"]["farm_deploy_watchenabled"] != '' %>
+                watchEnabled="<%= node["tomcat-all"]["farm_deploy_watchenabled"] %>"
+                <% end -%>
+            />
+        <% end -%>
+
+            </Cluster>
+        <% end -%>
+
+        <% if node["tomcat-all"]["SSO_enabled"] -%>
+            <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+        <% end -%>
 
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
