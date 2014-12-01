@@ -47,6 +47,54 @@ configured with the bellow default settings if no other settings is provided.
 
 * `['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'` - JAVA_OPTS configuration
 
+* `["tomcat-all"]["ssl_enabled"] = false` - Enable SSL [Connector](http://tomcat.apache.org/tomcat-7.0-doc/config/http.html). Must also set ssl_port (see below)
+
+* `["tomcat-all"]["ssl_port"] = ''` - The port to listen on for SSL Connections
+
+* `["tomcat-all"]["keystore_file"] = ''` - Absolute path to the SSL Keystore file
+
+* `["tomcat-all"]["keystore_pass"] = ''` - SSL Keystore file password
+
+* `["tomcat-all"]["keystore_type"] = ''` - SSL Keystore file type (e.g. 'JKS')
+
+* `["tomcat-all"]["lockout_realm_enabled"] = true` - Enable default [LockoutRealm](http://tomcat.apache.org/tomcat-7.0-doc/config/realm.html#LockOut_Realm_-_org.apache.catalina.realm.LockOutRealm) and configures a realm inside it (see below).
+
+* `["tomcat-all"]["lockout_realm_classname"] = 'org.apache.catalina.realm.UserDatabaseRealm'` - Realm inside of LockoutRealm className
+
+* `["tomcat-all"]["lockout_realm_resourcename"] = 'UserDatabase'` - Realm inside of LockoutRealm resourceName (if it has one)
+
+* `["tomcat-all"]["lockout_realm_datasourcename"] = ''` - Realm inside of LockoutRealm datasourceName (if it has one)
+
+* `["tomcat-all"]["lockout_realm_usertable"] = ''` - Realm inside of LockoutRealm userTable (if it has one)
+
+* `["tomcat-all"]["lockout_realm_usernamecol"] = ''` - Realm inside of LockoutRealm userNameCol (if it has one)
+
+* `["tomcat-all"]["lockout_realm_usercredcol"] = ''` - Realm inside of LockoutRealm userCredCol (if it has one)
+
+* `["tomcat-all"]["lockout_realm_userroletable"] = ''` - Realm inside of LockoutRealm userRoleTable (if it has one)
+
+* `["tomcat-all"]["lockout_realm_roleNameCol"] = ''` - Realm inside of LockoutRealm roleNameCol (if it has one)
+
+* `["tomcat-all"]["lockout_realm_localdatasource"] = ''` - Realm inside of LockoutRealm localDatasource (if it has one)
+
+* `["tomcat-all"]["lockout_realm_digest"] = ''` - Realm inside of LockoutRealm digest (if it has one)
+
+* `["tomcat-all"]["SSO_enabled"] = false` - Enable default [SingleSignOn Valve](http://tomcat.apache.org/tomcat-7.0-doc/config/valve.html#Single_Sign_On_Valve)
+
+* `["tomcat-all"]["cluster_class"] = ''` - [Cluster](http://tomcat.apache.org/tomcat-7.0-doc/config/cluster.html) class (must be set for Farm Deployment to work. See below)
+
+* `["tomcat-all"]["farm_deploy_enabled"] = false` - Enables [Farm Deployment](http://tomcat.apache.org/tomcat-7.0-doc/config/cluster-deployer.html) (must set properties below as well)
+
+* `["tomcat-all"]["farm_deploy_classname"] = ''` - Deployer className
+
+* `["tomcat-all"]["farm_deploy_tempdir"] = ''` - Deployer tempDir
+
+* `["tomcat-all"]["farm_deploy_deploydir"] = ''` - Deployer deployDir
+
+* `["tomcat-all"]["farm_deploy_watchdir"] = ''` - Deployer watchDir
+
+* `["tomcat-all"]["farm_deploy_watchenabled"] = ''` - Deployer watchEnabled
+
 # Example Config
 
 ```
