@@ -6,6 +6,8 @@ default['tomcat-all']['group'] = 'tomcat'
 ## installation
 default['tomcat-all']['version'] = '7.0.53'
 default['tomcat-all']['install_directory'] = '/opt'
+default['tomcat-all']['tomcat_home'] = '/opt/tomcat'
+default['tomcat-all']['set_etc_environment'] = false
 ## configuration
 default['tomcat-all']['shutdown_port'] = '8005'
 default['tomcat-all']['port'] = '8080'
