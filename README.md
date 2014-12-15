@@ -47,6 +47,8 @@ configured with the bellow default settings if no other settings is provided.
 
 * `['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'` - JAVA_OPTS configuration
 
+* `['tomcat-all']['catalina_opts'] = ''` - CATALINA_OPTS configuration
+
 * `["tomcat-all"]["ssl_enabled"] = false` - Enable SSL [Connector](http://tomcat.apache.org/tomcat-7.0-doc/config/http.html). Must also set ssl_port (see below)
 
 * `["tomcat-all"]["ssl_port"] = ''` - The port to listen on for SSL Connections

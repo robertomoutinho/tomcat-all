@@ -14,6 +14,7 @@ default['tomcat-all']['port'] = '8080'
 default['tomcat-all']['max_threads'] = '100'
 default['tomcat-all']['min_spare_threads'] = '10'
 default['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'
+default['tomcat-all']['catalina_opts'] = ''
 #SSL Connector
 default["tomcat-all"]["ssl_enabled"] = false
 default["tomcat-all"]["ssl_port"] = ''
