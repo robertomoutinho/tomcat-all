@@ -57,6 +57,8 @@ template '/etc/init.d/tomcat' do
   action :nothing
 end
 
+include_recipe 'tomcat-all::set_tomcat_home'
+
 # Enabling tomcat service and starting
 service 'tomcat' do
   action [:enable, :start]
