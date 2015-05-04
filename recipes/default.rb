@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 # Copyright (C) 2014 Roberto Moutinho
+# Copyright (C) 2015 Sunggun Yu
 #
 # All rights reserved - Do Not Redistribute
 #
@@ -26,40 +27,59 @@ end
 ark 'tomcat' do
   url download_url
   version node['tomcat-all']['version']
-  prefix_root node['tomcat-all']['install_directory']
-  prefix_home node['tomcat-all']['install_directory']
+  home_dir node['tomcat-all']['tomcat_home']
   owner node['tomcat-all']['user']
-  notifies :create, 'template[/etc/logrotate.d/tomcat]', :immediately
+  group node['tomcat-all']['group']
 end
 
 # Log rotation (catalina.out)
 template '/etc/logrotate.d/tomcat' do
   source 'logrotate.conf.erb'
-  notifies :create, "template[#{node['tomcat-all']['install_directory']}/tomcat/conf/server.xml]", :immediately
+  mode '0644'
+  owner node['tomcat-all']['user']
+  group node['tomcat-all']['group']
 end
 
 # Tomcat server configuration
-template node['tomcat-all']['install_directory'] + "/tomcat/conf/server.xml" do
+template "#{node['tomcat-all']['tomcat_home']}/conf/server.xml" do
   source 'server.conf.erb'
-  notifies :create, "template[#{node['tomcat-all']['install_directory']}/tomcat/bin/catalina.sh]", :immediately
+  mode '0644'
+  owner node['tomcat-all']['user']
+  group node['tomcat-all']['group']
 end
 
 # Tomcat catalina configuration
-template node['tomcat-all']['install_directory'] + "/tomcat/bin/catalina.sh" do
-  source 'catalina.conf.erb'
-  notifies :create, "template[/etc/init.d/tomcat]", :immediately
+template "#{node['tomcat-all']['tomcat_home']}/bin/setenv.sh" do
+  source 'setenv.sh.erb'
+  mode '0755'
+  owner node['tomcat-all']['user']
+  group node['tomcat-all']['group']
 end
 
 # Tomcat init script configuration
-template '/etc/init.d/tomcat' do
+template "/etc/init.d/tomcat#{major_version}" do
   source 'init.conf.erb'
   mode '0755'
-  action :nothing
+  owner node['tomcat-all']['user']
+  group node['tomcat-all']['group']
 end
 
 include_recipe 'tomcat-all::set_tomcat_home'
 
-# Enabling tomcat service and starting
-service 'tomcat' do
-  action [:enable, :restart]
+# Create default catalina.pid file to prevent restart error for 1st run of coookbook.
+file "#{node['tomcat-all']['tomcat_home']}/catalina.pid" do
+  owner node['tomcat-all']['user']
+  group node['tomcat-all']['group']
+  mode '0755'
+  action :create
+  not_if { ::File.exist?("#{node['tomcat-all']['tomcat_home']}/catalina.pid") }
+end
+
+# Enabling tomcat service and restart the service if subscribed template has changed.
+service "tomcat#{major_version}" do
+  supports :restart => true
+  action :enable
+  subscribes :restart, "template[/etc/init.d/tomcat#{major_version}]", :delayed
+  subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/bin/setenv.sh]", :delayed
+  subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/conf/server.xml]", :delayed
 end
