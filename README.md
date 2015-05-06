@@ -23,6 +23,24 @@ Requires "java" recipe (for java install and node['java']['java_home']).
 This recipe will also create a custom server.xml, catalina.sh and init script
 configured with the bellow default settings if no other settings is provided.
 
+Tomcat Users
+---------------------
+The recipe `tomcat-all::users` included in this cookbook is used for managing Tomcat users. The recipe adds users and roles to the `tomcat-users.xml` conf file.
+
+Users are defined by creating a `tomcat_users` data bag and placing [Encrypted Data Bag Items](http://docs.chef.io/chef/essentials_data_bags.html) in that data bag. Each encrypted data bag item requires an 'id', 'password', and a 'roles' field.
+
+```javascript
+{
+    "id": "user1",
+    "password": "somepassword",
+    "roles": [
+        "manager-gui",
+        "admin"
+    ]
+}
+```
+
+
 # Attributes
 
 >> Default values provided as example only

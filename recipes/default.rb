@@ -83,4 +83,5 @@ service "tomcat#{major_version}" do
   subscribes :restart, "template[/etc/init.d/tomcat#{major_version}]", :delayed
   subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/bin/setenv.sh]", :delayed
   subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/conf/server.xml]", :delayed
+  subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/conf/tomcat-users.xml]", :delayed
 end

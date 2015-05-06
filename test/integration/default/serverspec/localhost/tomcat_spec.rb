@@ -34,3 +34,7 @@ describe file('/opt/tomcat/conf/server.xml') do
   it { should be_writable.by_user('tomcat') }
   it { should be_readable.by_user('tomcat') }
 end
+
+describe command('wget -O - http://localhost:8080/manager/html --user=user1 --password=test-password12345') do
+  its(:stdout) { should match /Tomcat Web Application Manager/ }
+end

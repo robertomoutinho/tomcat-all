@@ -1,6 +1,10 @@
 # O.S. related settings
 default['tomcat-all']['user'] = 'tomcat'
 default['tomcat-all']['group'] = 'tomcat'
+default['tomcat-all']['tomcat_users_data_bag'] = 'tomcat_users'
+default['tomcat-all']['tomcat_users_search'] = '*:*'
+
+
 
 # Tomcat related settings
 ## installation
