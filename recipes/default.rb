@@ -21,6 +21,7 @@ user node['tomcat-all']['user'] do
   group node['tomcat-all']['group']
   system true
   shell '/bin/bash'
+  home node['tomcat-all']['tomcat_home']
 end
 
 # Download and unpack tomcat

@@ -4,7 +4,7 @@ default['tomcat-all']['group'] = 'tomcat'
 
 # Tomcat related settings
 ## installation
-default['tomcat-all']['version'] = '7.0.53'
+default['tomcat-all']['version'] = '7.0.61'
 default['tomcat-all']['tomcat_home'] = '/opt/tomcat'
 default['tomcat-all']['set_etc_environment'] = false
 
