@@ -28,10 +28,7 @@ module TomcatAll
 
       def find_users(data_bag, search)
         items = Chef::Search::Query.new.search(data_bag, search, encrypted_secret)[0]
-        Chef::Log.warn("items#{items}")
-        users = decrypt_items(items)
-        #Chef::Log.warn("users=#{users}")
-        users
+        decrypt_items(items)
       end
 
 
