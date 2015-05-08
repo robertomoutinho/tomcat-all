@@ -19,6 +19,10 @@ default['tomcat-all']['max_threads'] = '100'
 default['tomcat-all']['min_spare_threads'] = '10'
 default['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'
 default['tomcat-all']['catalina_opts'] = ''
+default['tomcat-all']['accept_count'] = '100'
+default['tomcat-all']['connection_timeout'] = '20000'
+default['tomcat-all']['max_http_header_size'] = '8192'
+
 
 # SSL Connector
 default['tomcat-all']['ssl_enabled'] = false
