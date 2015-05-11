@@ -39,6 +39,7 @@ template '/etc/logrotate.d/tomcat' do
   mode '0644'
   owner node['tomcat-all']['user']
   group node['tomcat-all']['group']
+  only_if {node['tomcat-all']['logrotate_enabled']}
 end
 
 # Tomcat server configuration

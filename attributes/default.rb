@@ -7,6 +7,8 @@ default['tomcat-all']['tomcat_users_search'] = '*:*'
 
 
 # Tomcat related settings
+default['tomcat-all']['logrotate_enabled'] = true
+
 ## installation
 default['tomcat-all']['version'] = '7.0.61'
 default['tomcat-all']['tomcat_home'] = '/opt/tomcat'
@@ -22,6 +24,8 @@ default['tomcat-all']['catalina_opts'] = ''
 default['tomcat-all']['accept_count'] = '100'
 default['tomcat-all']['connection_timeout'] = '20000'
 default['tomcat-all']['max_http_header_size'] = '8192'
+default['tomcat-all']['access_log_enabled'] = true
+
 
 
 # SSL Connector

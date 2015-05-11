@@ -129,9 +129,10 @@
             <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
         <% end -%>
 
+        <% if node["tomcat-all"]["access_log_enabled"] -%>
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-
+        <% end -%>
       </Host>
 
     </Engine>
