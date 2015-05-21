@@ -16,10 +16,15 @@ platforms:
       apt:
         compiletime: true
 
-  - name: centos-6.4
+  - name: centos-6.5
     driver_config:
       network:
       - ["private_network", {ip: "33.33.33.11"}]
+
+  - name: centos-6.6
+    driver_config:
+      network:
+      - ["private_network", {ip: "33.33.33.12"}]
 
 suites:
   - name: default
@@ -29,3 +34,5 @@ suites:
     attributes:
       java:
         jdk_version: 7
+      tomcat-all:
+        ssl_enabled: true

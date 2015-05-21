@@ -64,6 +64,28 @@ template "/etc/init.d/tomcat#{major_version}" do
   group node['tomcat-all']['group']
 end
 
+# Generate the keystore file for SSL
+if node['tomcat-all']['ssl_enabled']
+  ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+  node.set_unless['tomcat-all']['keystore_pass'] = secure_password
+  execute 'Generate the keystore file' do
+    group node['tomcat-all']['group']
+    command <<-EOH
+      keytool \
+      -genkey \
+      -keystore #{node['tomcat-all']['keystore_file']} \
+      -storepass #{node['tomcat-all']['keystore_pass']} \
+      -keypass #{node['tomcat-all']['keystore_pass']} \
+      -dname #{node['tomcat-all']['keystore_dname']} \
+      -keyalg RSA
+    EOH
+    umask 0007
+    creates node['tomcat-all']['keystore_file']
+    action :run
+    notifies :restart, "service[tomcat#{major_version}]"
+  end
+end
+
 include_recipe 'tomcat-all::set_tomcat_home'
 
 # Create default catalina.pid file to prevent restart error for 1st run of coookbook.

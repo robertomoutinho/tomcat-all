@@ -18,10 +18,11 @@ default['tomcat-all']['catalina_opts'] = ''
 
 # SSL Connector
 default['tomcat-all']['ssl_enabled'] = false
-default['tomcat-all']['ssl_port'] = ''
-default['tomcat-all']['keystore_file'] = ''
-default['tomcat-all']['keystore_pass'] = ''
-default['tomcat-all']['keystore_type'] = ''
+default['tomcat-all']['ssl_port'] = 8443
+default['tomcat-all']['keystore_file'] = "#{node['tomcat-all']['tomcat_home']}/keystore.jks"
+default['tomcat-all']['keystore_pass'] = nil
+default['tomcat-all']['keystore_type'] = 'jks'
+default['tomcat-all']['keystore_dname'] = 'cn=localhost'
 
 # Lockout Realm
 default['tomcat-all']['lockout_realm_enabled'] = true
