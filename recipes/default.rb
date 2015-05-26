@@ -73,14 +73,14 @@ if node['tomcat-all']['ssl_enabled']
     command <<-EOH
       keytool \
       -genkey \
-      -keystore #{node['tomcat-all']['keystore_file']} \
+      -keystore #{node['tomcat-all']['tomcat_home']}/#{node['tomcat-all']['keystore_file']} \
       -storepass #{node['tomcat-all']['keystore_pass']} \
       -keypass #{node['tomcat-all']['keystore_pass']} \
       -dname #{node['tomcat-all']['keystore_dname']} \
       -keyalg RSA
     EOH
     umask 0007
-    creates node['tomcat-all']['keystore_file']
+    creates "#{node['tomcat-all']['tomcat_home']}/#{node['tomcat-all']['keystore_file']}"
     action :run
     notifies :restart, "service[tomcat#{major_version}]"
   end
