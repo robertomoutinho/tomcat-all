@@ -4,6 +4,9 @@ describe 'Tomcat Daemon' do
   it 'is listening on port 8080' do
     expect(port(8080)).to be_listening
   end
+  it 'is listening on port 8080' do
+    expect(port(8443)).to be_listening
+  end
   it 'has a running service of tomcat' do
     expect(service('tomcat7')).to be_running
   end
@@ -33,4 +36,9 @@ describe file('/opt/tomcat/conf/server.xml') do
   it { should be_owned_by 'tomcat' }
   it { should be_writable.by_user('tomcat') }
   it { should be_readable.by_user('tomcat') }
+end
+
+describe file('/opt/tomcat/keystore.jks') do
+  it { should be_file }
+  it { should be_grouped_into 'tomcat' }
 end

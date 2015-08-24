@@ -29,8 +29,7 @@
                URIEncoding="UTF-8"
                redirectPort="443"/>
 
-    <% if node["tomcat-all"]["ssl_enabled"] -%>
-
+    <% if node["tomcat-all"]["ssl_enabled"] && node["tomcat-all"]["ssl_port"] -%>
     <Connector executor="tomcatThreadPool"
         port="<%= node["tomcat-all"]["ssl_port"] %>"
         maxHttpHeaderSize="8192"
@@ -43,15 +42,9 @@
         clientAuth="false"
         sslProtocol="TLS"
         URIEncoding="UTF-8"
-        <% if node["tomcat-all"]["keystore_file"]!='' -%>
-            keystoreFile="<%= node["tomcat-all"]["keystore_file"] %>"
-        <% end -%>
-        <% if node["tomcat-all"]["keystore_pass"]!='' -%>
-            keystorePass="<%= node["tomcat-all"]["keystore_pass"] %>"
-        <% end -%>
-        <% if node["tomcat-all"]["keystore_type"]!='' -%>
-            keystoreType="<%= node["tomcat-all"]["keystore_type"] %>"
-        <% end -%>
+        keystoreFile="<%= node["tomcat-all"]["tomcat_home"] %>/<%= node["tomcat-all"]["keystore_file"] %>"
+        keystorePass="<%= node["tomcat-all"]["keystore_pass"] %>"
+        keystoreType="<%= node["tomcat-all"]["keystore_type"] %>"
     />
     <% end -%>
 
