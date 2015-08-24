@@ -6,7 +6,9 @@
 # pidfile: /var/www/tomcat/tomcat.pid
 
 # Source function library.
-. /etc/init.d/functions
+if [ -f /etc/init.d/functions ]; then
+    . /etc/init.d/functions
+fi
 
 TOMCAT_USER=<%= node['tomcat-all']['user'] %>
 CATALINA_HOME=<%= node['tomcat-all']['tomcat_home'] %>

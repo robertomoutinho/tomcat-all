@@ -16,16 +16,18 @@ platforms:
       apt:
         compiletime: true
 
-  - name: centos-6.4
+  - name: centos-6.6
     driver_config:
       network:
       - ["private_network", {ip: "33.33.33.11"}]
 
 suites:
   - name: default
+    encrypted_data_bag_secret_key_path: test/integration/default/encrypted_data_bag_secret
     run_list:
       - recipe[java]
       - recipe[tomcat-all::default]
+      - recipe[tomcat-all::users]
     attributes:
       java:
         jdk_version: 7

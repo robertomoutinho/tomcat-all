@@ -1,10 +1,16 @@
 # O.S. related settings
 default['tomcat-all']['user'] = 'tomcat'
 default['tomcat-all']['group'] = 'tomcat'
+default['tomcat-all']['tomcat_users_data_bag'] = 'tomcat_users'
+default['tomcat-all']['tomcat_users_search'] = '*:*'
+
+
 
 # Tomcat related settings
+default['tomcat-all']['logrotate_enabled'] = true
+
 ## installation
-default['tomcat-all']['version'] = '7.0.53'
+default['tomcat-all']['version'] = '7.0.61'
 default['tomcat-all']['tomcat_home'] = '/opt/tomcat'
 default['tomcat-all']['set_etc_environment'] = false
 default['tomcat-all']['download_server'] = 'http://archive.apache.org/'
@@ -16,6 +22,12 @@ default['tomcat-all']['max_threads'] = '100'
 default['tomcat-all']['min_spare_threads'] = '10'
 default['tomcat-all']['java_opts'] = '-d64 -server -Djava.awt.headless=true'
 default['tomcat-all']['catalina_opts'] = ''
+default['tomcat-all']['accept_count'] = '100'
+default['tomcat-all']['connection_timeout'] = '20000'
+default['tomcat-all']['max_http_header_size'] = '8192'
+default['tomcat-all']['access_log_enabled'] = true
+
+
 
 # SSL Connector
 default['tomcat-all']['ssl_enabled'] = false

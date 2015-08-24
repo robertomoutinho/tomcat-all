@@ -17,14 +17,15 @@
   <Service name="Catalina">
 
     <Executor name="tomcatThreadPool" namePrefix="catalina-exec-"
-        maxThreads="<%= node["tomcat-all"]["max_threads"] %>" minSpareThreads="<%= node["tomcat-all"]["min_spare_threads"] %>" />
+              maxThreads="<%= node["tomcat-all"]["max_threads"] %>"
+              minSpareThreads="<%= node["tomcat-all"]["min_spare_threads"] %>" />
 
     <Connector executor="tomcatThreadPool"
                port="<%= node["tomcat-all"]["port"] %>" protocol="HTTP/1.1"
-               connectionTimeout="20000"
-               maxHttpHeaderSize="8192"
+               connectionTimeout="<%= node["tomcat-all"]["connection_timeout"] %>"
+               maxHttpHeaderSize="<%= node["tomcat-all"]["max_http_header_size"] %>"
                enableLookups="false"
-               acceptCount="100"
+               acceptCount="<%= node["tomcat-all"]["accept_count"] %>"
                disableUploadTimeout="true"
                URIEncoding="UTF-8"
                redirectPort="443"/>
@@ -33,10 +34,10 @@
 
     <Connector executor="tomcatThreadPool"
         port="<%= node["tomcat-all"]["ssl_port"] %>"
-        maxHttpHeaderSize="8192"
+        maxHttpHeaderSize="<%= node["tomcat-all"]["max_http_header_size"] %>"
         enableLookups="false"
         disableUploadTimeout="true"
-        acceptCount="100"
+        acceptCount="<%= node["tomcat-all"]["accept_count"] %>"
         scheme="https"
         secure="true"
         SSLEnabled="true"
@@ -128,9 +129,10 @@
             <Valve className="org.apache.catalina.authenticator.SingleSignOn" />
         <% end -%>
 
+        <% if node["tomcat-all"]["access_log_enabled"] -%>
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"
                prefix="localhost_access_log." suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
-
+        <% end -%>
       </Host>
 
     </Engine>

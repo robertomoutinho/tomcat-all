@@ -4,7 +4,7 @@ This cookbook will install tomcat using apache's binaries and extract it to the 
 
 Tested with test-kitchen + serverspec:
 
-- CentOS 6.4 + Tomcat 7.0.53
+- CentOS 6.6 + Tomcat 7.0.53
 - Ubuntu 12.04 + Tomcat 7.0.53
 
 # Requirements
@@ -18,10 +18,28 @@ Developed using
 
 Simply include the tomcat-all recipe wherever you would like, such as a run
 list (recipe[tomcat-all]) or a cookbook (include_recipe 'tomcat-all').
-By default, Oracle JDK 1.7 (JDK & JAVA_HOME) and Tomcat 7 will be installed.
+Requires "java" recipe (for java install and node['java']['java_home']).
 
 This recipe will also create a custom server.xml, catalina.sh and init script
 configured with the bellow default settings if no other settings is provided.
+
+Tomcat Users
+---------------------
+The recipe `tomcat-all::users` included in this cookbook is used for managing Tomcat users. The recipe adds users and roles to the `tomcat-users.xml` conf file.
+
+Users are defined by creating a `tomcat_users` data bag and placing [Encrypted Data Bag Items](http://docs.chef.io/chef/essentials_data_bags.html) in that data bag. Each encrypted data bag item requires an 'id', 'password', and a 'roles' field.
+
+```javascript
+{
+    "id": "user1",
+    "password": "somepassword",
+    "roles": [
+        "manager-gui",
+        "admin"
+    ]
+}
+```
+
 
 # Attributes
 

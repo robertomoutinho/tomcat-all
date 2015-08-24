@@ -21,6 +21,7 @@ user node['tomcat-all']['user'] do
   group node['tomcat-all']['group']
   system true
   shell '/bin/bash'
+  home node['tomcat-all']['tomcat_home']
 end
 
 # Download and unpack tomcat
@@ -38,6 +39,7 @@ template '/etc/logrotate.d/tomcat' do
   mode '0644'
   owner node['tomcat-all']['user']
   group node['tomcat-all']['group']
+  only_if {node['tomcat-all']['logrotate_enabled']}
 end
 
 # Tomcat server configuration
@@ -82,4 +84,5 @@ service "tomcat#{major_version}" do
   subscribes :restart, "template[/etc/init.d/tomcat#{major_version}]", :delayed
   subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/bin/setenv.sh]", :delayed
   subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/conf/server.xml]", :delayed
+  subscribes :restart, "template[#{node['tomcat-all']['tomcat_home']}/conf/tomcat-users.xml]", :delayed
 end
