@@ -1,7 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <Server port="<%= node["tomcat-all"]["shutdown_port"] %>" shutdown="SHUTDOWN">
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
+<% unless node['tomcat-all']['version'][0] == '8' %>
   <Listener className="org.apache.catalina.core.JasperListener" />
+<% end %>
   <Listener className="org.apache.catalina.core.JreMemoryLeakPreventionListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
   <Listener className="org.apache.catalina.core.ThreadLocalLeakPreventionListener" />
