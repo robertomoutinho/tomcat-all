@@ -21,7 +21,7 @@
               minSpareThreads="<%= node["tomcat-all"]["min_spare_threads"] %>" />
 
     <Connector executor="tomcatThreadPool"
-               port="<%= node["tomcat-all"]["port"] %>" protocol="HTTP/1.1"
+               port="<%= node["tomcat-all"]["port"] %>" protocol="<%= node['tomcat-all']['protocol'] %>"
                connectionTimeout="<%= node["tomcat-all"]["connection_timeout"] %>"
                maxHttpHeaderSize="<%= node["tomcat-all"]["max_http_header_size"] %>"
                enableLookups="false"

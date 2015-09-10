@@ -25,6 +25,7 @@ default['tomcat-all']['accept_count'] = '100'
 default['tomcat-all']['connection_timeout'] = '20000'
 default['tomcat-all']['max_http_header_size'] = '8192'
 default['tomcat-all']['access_log_enabled'] = true
+default['tomcat-all']['protocol'] = 'HTTP/1.1'
 
 
 
